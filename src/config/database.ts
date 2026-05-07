@@ -1,11 +1,14 @@
 import { Client } from "pg";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const db = new Client({
-  user: "postgres",
-  host: "localhost",
-  database: "learning_ts",
-  password: "admin123",
-  port: 5432,
+  user: process.env.DB_USER || "postgres",
+  host: process.env.DB_HOST || "localhost",
+  database: process.env.DB_NAME || "learning_ts",
+  password: process.env.DB_PASSWORD || "admin123",
+  port: Number(process.env.DB_PORT || 5432),
 });
 
 export const connectDB = async () => {
