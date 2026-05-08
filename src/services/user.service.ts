@@ -27,6 +27,9 @@ class UserService {
     async getUserById(userId:string){
         return await userRepository.getUserById(userId);
     }
+    async deleteUser(filter:string){
+        return await userRepository.deleteUser(filter)
+    }
 }
 
 export default new UserService();

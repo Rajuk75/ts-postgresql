@@ -26,5 +26,16 @@ class UserRepository{
         const result=await db.query(query,values)
         return result.rows[0]
     }
+
+    async deleteUser(filter:string){
+        const query=`DELETE FROM ${userModel.tableName}
+        WHERE id::text=$1
+        OR email=$1
+        RETURNING *;
+        `;
+        const values=[filter]
+        const result=await db.query(query,values);
+        return result.rows[0];
+    }
 }
 export default new UserRepository();

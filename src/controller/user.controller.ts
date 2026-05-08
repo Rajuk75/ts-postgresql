@@ -41,7 +41,7 @@ class UserController {
         }
     }
 
-        async getUserById(req:Request<{ userId: string }>,res:Response){
+    async getUserById(req:Request<{ userId: string }>,res:Response){
         try {
             const {userId}=req.params
             const result =await userService.getUserById(userId);
@@ -54,6 +54,23 @@ class UserController {
             res.status(500).json({
                 success: false,
                 message: error.message || "Error creating user"
+            });
+        }
+    }
+
+        async deleteUser(req:Request<{ filter: string }>,res:Response){
+        try {
+            const {filter}=req.body
+            const result =await userService.deleteUser(filter);
+            res.status(200).json({
+            success: true,
+            message: "User deleted successfully",
+            data: result
+        });
+        } catch (error:any) {
+            res.status(500).json({
+                success: false,
+                message: error.message || "Error deleting user"
             });
         }
     }
